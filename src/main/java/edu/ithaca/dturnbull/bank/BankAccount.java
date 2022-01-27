@@ -46,6 +46,9 @@ public class BankAccount {
         if (email.indexOf("@")== -1) { // no @ symbol
             return false;
         }
+        if (email.contains("@@")) { // 2 @ symbol
+            return false;
+        }
         int firstCharInt = email.codePointAt(0);
         int lastCharInt = email.codePointAt(email.length()-1);
         String domain = email.substring(email.indexOf("@")+1, email.length());
