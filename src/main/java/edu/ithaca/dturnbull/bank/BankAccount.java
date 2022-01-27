@@ -9,7 +9,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email)){
+        if (isEmailValid(email) && startingBalance >= 0){
             this.email = email;
             this.balance = startingBalance;
         }
@@ -30,7 +30,10 @@ public class BankAccount {
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (amount <= balance){
+        if(amount < 0){
+            throw new IllegalArgumentException("Can not withdraw negative moeny");
+        }
+        else if (amount <= balance){
             balance -= amount;
         }
         else {
