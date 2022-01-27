@@ -26,22 +26,21 @@ class BankAccountTest {
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));                   // valid email address
         assertFalse(BankAccount.isEmailValid(""));                          // empty string
-        assertTrue( BankAccount.isEmailValid("abc-d@mail.com"));           
-        assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));           
-        assertTrue( BankAccount.isEmailValid("abc@mail.com"));           
-        assertTrue( BankAccount.isEmailValid("abc_def@mail.com"));   
-        assertFalse( BankAccount.isEmailValid("abc-@mail.com"));           // bad character
-        assertFalse( BankAccount.isEmailValid("abc..def@mail.com"));       // too many periods
-        assertFalse( BankAccount.isEmailValid(".abc@mail.com"));           // bad character
-        assertFalse( BankAccount.isEmailValid("abc#def@mail.com	"));       // bad character
-        assertTrue( BankAccount.isEmailValid("abc.def@mail.cc"));           
-        assertTrue( BankAccount.isEmailValid("abc.def@mail-archive.com"));           
-        assertTrue( BankAccount.isEmailValid("abc.def@mail.org"));           
-        assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));      
-        assertFalse( BankAccount.isEmailValid("abc.def@mail.c"));           // domain too short
-        assertFalse( BankAccount.isEmailValid("abc.def@mail#archive.com")); // invalid characters
-        assertFalse( BankAccount.isEmailValid("abc.def@mail"));             // missing domain portion
-        assertFalse( BankAccount.isEmailValid("abc.def@mail..com"));        // too many domain periods
+        assertTrue( BankAccount.isEmailValid("abc-d@mail.com"));            // good prefix
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));          // good prefix
+        assertTrue( BankAccount.isEmailValid("abc@mail.com"));              // good prefix
+        assertTrue( BankAccount.isEmailValid("abc_def@mail.com"));          // good prefix
+        assertFalse( BankAccount.isEmailValid("abc..def@mail.com"));        // bad prefix - too many periods
+        assertFalse( BankAccount.isEmailValid(".abc@mail.com"));            // bad prefix - cant start w/ period
+        assertFalse( BankAccount.isEmailValid("abc#def@mail.com	"));        // bad prefix - invalid characters
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.cc"));           // good domain
+        assertTrue( BankAccount.isEmailValid("abc.def@mail-archive.com"));  // good domain
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.org"));          // good domain
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));          // good domain
+        assertFalse( BankAccount.isEmailValid("abc.def@mail.c"));           // bad domain - too short
+        assertFalse( BankAccount.isEmailValid("abc.def@mail#archive.com")); // bad domain - invalid characters
+        assertFalse( BankAccount.isEmailValid("abc.def@mail"));             // bad domain - missing domain portion
+        assertFalse( BankAccount.isEmailValid("abc.def@mail..com"));        // bad domain - too many periods
     }
 
     @Test
