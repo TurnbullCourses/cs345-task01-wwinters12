@@ -62,7 +62,7 @@ public class BankAccount {
             return false;
         } else if (lastCharInt < 97 || lastCharInt > 122) { // last character isnt valid
             return false;
-        } else if (domain.length()-domain.lastIndexOf(".") < 2) { // domain less than 2 characters
+        } else if (domain.length()-domain.lastIndexOf(".") <= 2) { // domain less than 2 characters
             return false;
         } else {
             return true;
