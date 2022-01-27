@@ -26,13 +26,22 @@ class BankAccountTest {
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));                   // valid email address
         assertFalse(BankAccount.isEmailValid(""));                          // empty string
-        assertTrue(BankAccount.isEmailValid("abc_def@mail.com"));           // EP : valid characters
-        assertFalse(BankAccount.isEmailValid(".abc@mail.com"));             // EP : invalid substring, border case
-        assertTrue(BankAccount.isEmailValid("abc.def@mail-archive.com"));   // EP : valid substring
-        assertFalse(BankAccount.isEmailValid("abc.def@mail"));              // EP : invalid domain
-        assertTrue(BankAccount.isEmailValid("abc.def@mail.org"));           // EP : valid domain
-        assertFalse(BankAccount.isEmailValid("abc@mail..com"));             // EP : invalid substring
-        // I would test more invalid substrings such as bad sequential chars and a few tests for valid and invalid characters
+        assertTrue( BankAccount.isEmailValid("abc-d@mail.com"));           
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));           
+        assertTrue( BankAccount.isEmailValid("abc@mail.com"));           
+        assertTrue( BankAccount.isEmailValid("abc_def@mail.com"));   
+        assertFalse( BankAccount.isEmailValid("abc-@mail.com"));           // bad character
+        assertFalse( BankAccount.isEmailValid("abc..def@mail.com"));       // too many periods
+        assertFalse( BankAccount.isEmailValid(".abc@mail.com"));           // bad character
+        assertFalse( BankAccount.isEmailValid("abc#def@mail.com	"));       // bad character
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.cc"));           
+        assertTrue( BankAccount.isEmailValid("abc.def@mail-archive.com"));           
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.org"));           
+        assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));      
+        assertFalse( BankAccount.isEmailValid("abc.def@mail.c"));           // domain too short
+        assertFalse( BankAccount.isEmailValid("abc.def@mail#archive.com")); // invalid characters
+        assertFalse( BankAccount.isEmailValid("abc.def@mail"));             // missing domain portion
+        assertFalse( BankAccount.isEmailValid("abc.def@mail..com"));        // too many domain periods
     }
 
     @Test
