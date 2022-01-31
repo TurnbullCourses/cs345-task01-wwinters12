@@ -8,34 +8,34 @@ class BankAccountTest {
 
     @Test
     void getBalanceTest() {
-        BankAccount bankAccount1 = new BankAccount("a@b.com", 200);
+        BankAccount bankAccount1 = new BankAccount("a@b.com", 200); // creates account with money 
         assertEquals(200, bankAccount1.getBalance());
 
-        assertThrows(IllegalArgumentException.class, () -> new BankAccount("a@b.com", -50));
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("a@b.com", -50)); // creates account with negative money
 
-        BankAccount bankAccount3 = new BankAccount("a@b.com", 0);
+        BankAccount bankAccount3 = new BankAccount("a@b.com", 0); // creates account with 0 money
         assertEquals(0, bankAccount3.getBalance());
     }
 
     @Test
     void withdrawTest() throws InsufficientFundsException{
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        BankAccount bankAccount = new BankAccount("a@b.com", 200); // creates account
         
-        bankAccount.withdraw(100);
+        bankAccount.withdraw(100); // correct withdraw
         assertEquals(100, bankAccount.getBalance());
         
-        bankAccount.withdraw(0);
+        bankAccount.withdraw(0); // withdraw nothing
         assertEquals(100, bankAccount.getBalance());
 
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-50));
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(101));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-50)); // withdraw negative
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(101)); // withdraw too many 
     }
 
     @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));                   // valid email address
-        assertFalse(BankAccount.isEmailValid("abc.com"));
-        assertFalse(BankAccount.isEmailValid("abc@@mail.com"));
+        assertFalse(BankAccount.isEmailValid("abc.com"));                   // no @ sign
+        assertFalse(BankAccount.isEmailValid("abc@@mail.com"));             // 2 @ signs
         assertFalse(BankAccount.isEmailValid(""));                          // empty string
         assertTrue( BankAccount.isEmailValid("abc-d@mail.com"));            // good prefix
         assertTrue( BankAccount.isEmailValid("abc.def@mail.com"));          // good prefix

@@ -43,7 +43,7 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email) {
-        if (email.length()==0) { // empty styring
+        if (email.length()==0) { // empty string
             return false;
         }
         if (email.indexOf("@")== -1) { // no @ symbol
