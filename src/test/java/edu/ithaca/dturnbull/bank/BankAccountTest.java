@@ -29,6 +29,10 @@ class BankAccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-50)); // withdraw negative
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(101)); // withdraw too many 
+
+        BankAccount bankAccount1 = new BankAccount("a@b.com", 200);
+        bankAccount1.withdraw(0.01); // withdraw cents
+        assertEquals(199.99, bankAccount1.getBalance());
     }
 
     @Test

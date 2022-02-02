@@ -9,12 +9,19 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email) && startingBalance >= 0){
+        boolean emailValid = false;
+        boolean balanceValid = false;
+
+        if (isEmailValid(email)){
             this.email = email;
-            this.balance = startingBalance;
+            emailValid = true;
         }
-        else {
-            throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
+        if (isAmountValid(startingBalance)) {
+            this.balance = startingBalance;
+            balanceValid = true;
+        }
+        if (!emailValid || !balanceValid) {
+            throw new IllegalArgumentException("Email address and/or balance is invalid, cannot create account");
         }
     }
 
@@ -24,6 +31,32 @@ public class BankAccount {
 
     public String getEmail(){
         return email;
+    }
+
+    /**
+     * @post increases the balance by amount if amount is valid
+     * <li>If amount is not valid, throw IllegalArgumentException.</li>
+     */
+    public void deposit (double amount) throws IllegalArgumentException{
+        if (isAmountValid(amount)) {
+            this.balance += amount;
+        } else {
+            throw new IllegalArgumentException("Deposit amount is invalid.");
+        }
+    }
+
+    /**
+     * @post decreases amount from balance and deposits to another account's balance
+     * <li>If amount is not valid, throw IllegalArgumentException.</li>
+     * <li>If transferee is not valid, throw IllegalArgumentException.</li>
+     */
+    public void transfer (double amount, BankAccount transferAccount) throws IllegalArgumentException, InsufficientFundsException{
+        if (transferAccount==null) {
+            throw new IllegalArgumentException("Transfer account is invalid.");
+        } else {
+            this.withdraw(amount);
+            transferAccount.deposit(amount);
+        }
     }
 
     /**
@@ -39,6 +72,22 @@ public class BankAccount {
         else {
             throw new InsufficientFundsException("Not enough money");
         }
+    }
+
+    /**
+     * <li>If amount is negative, return false.</li>
+     * <li>If amount is has more than two decimal points, return false.</li>
+     */
+    public static boolean isAmountValid(double amount) {
+        if (amount < 0) {
+            return false;
+        } 
+        String amountStr = Double.toString(Math.abs(amount));
+        int integerPlaces = amountStr.indexOf('.');
+        if (((amountStr.length() - integerPlaces - 1) > 2) && (amount%1!=0))  {
+            return false;
+        }
+        return true;
     }
 
 
