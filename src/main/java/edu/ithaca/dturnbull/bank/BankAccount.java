@@ -84,7 +84,7 @@ public class BankAccount {
         } 
         String amountStr = Double.toString(Math.abs(amount));
         int integerPlaces = amountStr.indexOf('.');
-        if (((amountStr.length() - integerPlaces - 1) > 2) && (amount%1!=0))  {
+        if (((amountStr.length() - integerPlaces - 1) > 2))  {
             return false;
         }
         return true;
